@@ -1,8 +1,8 @@
 import configparser
 import discord
 import os
-import random
 import rule
+
 
 rules = None
 intents = discord.Intents.default()
@@ -35,7 +35,6 @@ def start_client():
 
 def read_rules():
     return rule.Rules('rules.ini')
-
 
 
 if __name__ == '__main__':
