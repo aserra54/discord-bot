@@ -36,7 +36,7 @@ def read_token(path):
 
 
 def read_rules():
-    return rule.Rules('rules.ini')
+    return rule.Rules('rules.json')
 
 
 if __name__ == '__main__':
