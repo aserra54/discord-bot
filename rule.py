@@ -4,6 +4,9 @@ import random
 
 
 class Rules:
+    '''Main entry point for processing a message. The constructor takes the path to the rules file for loading the
+    rule definitions. Otherwise defines a single async 'handle' method, which takes in a Discord message and sends a
+    response to it, if necessary.'''
 
     def __init__(self, path):
         self._rules = self._read_rules(path)
