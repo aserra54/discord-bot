@@ -1,9 +1,4 @@
-Create a `config.ini` in the same folder as the bot, with the following contents:
-
-```text
-[BOT]
-token = YOUR_DISCORD_TOKEN_HERE
-```
+Create a `.token` in the same folder as the bot, and set its contents to your Discord bot token (with no new line at the end of the file).
 
 From a command prompt, create a virtual environment for Python, install the requirements, then run `bot.py`, e.g.
 
