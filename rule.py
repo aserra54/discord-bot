@@ -43,13 +43,17 @@ class Rules:
 class Rule:
 
     def __init__(self, section):
-
         self._channel = None
         self._rate = 1.0
         self._authors = []
         self._substrings = []
+        self._excludes = []
         self._responses = []
 
+        self._parse_section(section)
+        self._validate()
+
+    def _parse_section(self, section):
         for key, value in section.items():
             if key == 'channel':
                 self._channel = value
@@ -59,14 +63,17 @@ class Rule:
                 self._authors.append(value)
             elif key.startswith('contains'):
                 self._substrings.append(value)
+            elif key.startswith('not_contains'):
+                self._excludes.append(value)
             elif key.startswith('response'):
                 self._responses.append(value)
-        
+    
+    def _validate(self):
         if self._channel is None:
             raise Exception('No channel specified')
         if len(self._responses) == 0:
             raise Exception('Rule has no responses')
-        if len(self._authors) == 0 and len(self._substrings) == 0:
+        if len(self._authors) == 0 and len(self._substrings) == 0 and len(self._excludes) == 0:
             raise Exception('Rule has no definitions')
 
     def should_apply(self, message):
@@ -74,8 +81,12 @@ class Rule:
             return False
         if len(self._authors) > 0 and message.author.name not in self._authors:
             return False
+        content = message.content.lower()
         for substring in self._substrings:
-            if substring not in message.content.lower():
+            if substring not in content:
+                return False
+        for exclude in self._excludes:
+            if exclude in content:
                 return False
         return True
 
