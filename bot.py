@@ -1,4 +1,3 @@
-import configparser
 import discord
 import os
 import rule
@@ -24,13 +23,16 @@ async def on_message(message):
 
 def start_client():
     global rules
-    if not os.path.isfile('config.ini'):
-        raise Exception('Could not find configuration file')
-    config = configparser.ConfigParser()
-    config.read('config.ini')
-    token = config['BOT']['token']
+    token = read_token('.token')
     rules = read_rules()
     client.run(token)
+
+
+def read_token(path):
+    if not os.path.isfile(path):
+        raise ValueError(f'No such file: {path}')
+    with open(path, 'r') as f:
+        return f.read()
 
 
 def read_rules():
