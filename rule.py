@@ -1,4 +1,4 @@
-import configparser
+import json
 import os
 import random
 
@@ -12,23 +12,20 @@ class Rules:
         self._rules = self._read_rules(path)
 
     def _read_rules(self, path):
-        config = self._read_config(path)
+        config = self._read_json(path)
         return self._parse_rules(config)
 
-    def _read_config(self, path):
+    def _read_json(self, path):
         if not os.path.isfile(path):
             raise ValueError(f'No such path: {path}')
-        config = configparser.ConfigParser()
-        config.read(path)
-        return config
+        with open(path, 'r') as f:
+            return json.loads(f.read())
 
     def _parse_rules(self, config):
         rules = []
-        for section_name in config.sections():
-            if section_name.startswith('Rule'):
-                section = config[section_name]
-                rule = Rule(section)
-                rules.append(rule)
+        for rule_json in config['rules']:
+            rule = Rule(rule_json)
+            rules.append(rule)
         return rules
 
     async def handle(self, message):
@@ -42,31 +39,14 @@ class Rules:
 
 class Rule:
 
-    def __init__(self, section):
-        self._channel = None
-        self._rate = 1.0
-        self._authors = []
-        self._substrings = []
-        self._excludes = []
-        self._responses = []
-
-        self._parse_section(section)
+    def __init__(self, rule_json):
+        self._channel = rule_json.get('channel', None)
+        self._rate = rule_json.get('rate', 1.0)
+        self._authors = rule_json.get('authors', [])
+        self._substrings = rule_json.get('contains', [])
+        self._excludes = rule_json.get('not_contains', [])
+        self._responses = rule_json.get('responses', [])
         self._validate()
-
-    def _parse_section(self, section):
-        for key, value in section.items():
-            if key == 'channel':
-                self._channel = value
-            elif key == 'rate':
-                self._rate = float(value)
-            elif key.startswith('author'):
-                self._authors.append(value)
-            elif key.startswith('contains'):
-                self._substrings.append(value)
-            elif key.startswith('not_contains'):
-                self._excludes.append(value)
-            elif key.startswith('response'):
-                self._responses.append(value)
     
     def _validate(self):
         if self._channel is None:
