@@ -1,9 +1,9 @@
+import configparser
 import discord
 import os
 import random
 
 
-discord_token = 'TOKEN'
 intents = discord.Intents.default()
 intents.message_content = True
 client = discord.Client(intents=intents)
@@ -57,4 +57,14 @@ async def handle_phasmophobia(message):
     await send(message.channel, lines, percentage)
 
 
-client.run(discord_token)
+def start_client():
+    if not os.path.isfile('config.ini'):
+        raise Exception('Could not find configuration file')
+    config = configparser.ConfigParser()
+    config.read('config.ini')
+    token = config['BOT']['token']
+    client.run(token)
+
+
+if __name__ == '__main__':
+    start_client()
