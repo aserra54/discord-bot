@@ -11,7 +11,7 @@ copy etc\* "%OUT_DIR%"
 
 python -m venv "%OUT_DIR%\.env"
 call "%OUT_DIR%\.env\Scripts\activate.bat"
-pip install -r requirements.txt
+pip install -r etc\requirements.txt
 call "%OUT_DIR%\.env\Scripts\deactivate.bat"
 
 set "RUN_SCRIPT=%OUT_DIR%\run.bat"
