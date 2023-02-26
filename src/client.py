@@ -1,4 +1,5 @@
 import discord
+import os
 import rule
 import time
 from discord.ext import commands
@@ -28,7 +29,12 @@ class RedmacBotClient(commands.Bot):
         await self._rules.handle(message)
 
     def _refresh_rules(self):
-        if time.time() - self._last_read_time > 60:
+        current_time = time.time()
+        if current_time - self._last_read_time > 5:
+            mod_time = os.path.getmtime(self._rules_path)
+            if mod_time < self._last_read_time:
+                print('No updates to rules, skipping')
+                return
             print('Refreshing rules')
             try:
                 new_rules = rule.Rules(self._rules_path)
