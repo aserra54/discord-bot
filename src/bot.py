@@ -1,10 +1,13 @@
 import discord
+import logging
 import os
 import rule
 import time
 from discord.ext import commands
 
 
+LOGGER = logging.getLogger('discord.redmac.bot')
+LOGGER.setLevel(logging.DEBUG)
 INTENTS = discord.Intents.default()
 INTENTS.message_content = True
 
@@ -20,7 +23,7 @@ class RedmacBot(commands.Bot):
         self._last_read_time = time.time()
     
     async def on_ready(self):
-        print(f'{self.user} has connected to Discord!')
+        LOGGER.info(f'{self.user} has connected to Discord!')
 
     async def on_message(self, message):
         self._refresh_rules()
@@ -35,15 +38,16 @@ class RedmacBot(commands.Bot):
             # only refresh the rules if the file has changed
             mod_time = os.path.getmtime(self._rules_path)
             if mod_time < self._last_read_time:
-                print('No updates to rules, skipping')
+                LOGGER.debug('No updates to rules file, nothing to refresh')
                 return
 
             # try refreshing the rules; if they cannot be parsed, then keep the old rules
-            print('Refreshing rules')
+            LOGGER.debug('Refreshing posting rules')
             try:
                 new_rules = rule.Rules(self._rules_path)
-            except:
-                print('Failed to read rules')
+            except Exception as e:
+                LOGGER.warning(f'Failed to update rules, error: {e.message}')
                 return
             self._rules = new_rules
             self._last_read_time = time.time()
+            LOGGER.debug('Rules successfully refreshed')

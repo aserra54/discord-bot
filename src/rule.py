@@ -1,6 +1,11 @@
 import json
+import logging
 import os
 import random
+
+
+LOGGER = logging.getLogger('discord.redmac.rule')
+LOGGER.setLevel(logging.DEBUG)
 
 
 class Rules:
@@ -32,9 +37,17 @@ class Rules:
         for rule in self._rules:
             if rule.should_apply(message):
                 response = rule.get_response()
+                self._log_match(message, rule, response)
                 if response:
                     await message.channel.send(response)
                 break
+
+    def _log_match(self, message, rule, response):
+        LOGGER.debug('Found match for message:')
+        LOGGER.debug(f'   Message:  {message.content}')
+        LOGGER.debug(f'   Channel:  {message.channel.name}')
+        LOGGER.debug(f'   Author:   {message.author.name}')
+        LOGGER.debug(f"   Response: {response if response else '<empty>'}")
 
 
 class Rule:
