@@ -4,6 +4,8 @@ import rule
 
 
 class RedmacBotClient(discord.Client):
+    '''The main client for running the bot. Reads the token and parses the rules, the latter of which is used to
+    determine how to respond to users.'''
 
     def __init__(self, token_path, rules_path):
         intents = discord.Intents.default()
