@@ -44,9 +44,10 @@ class Rules:
 
     def _log_match(self, message, rule, response):
         LOGGER.debug('Found match for message:')
-        LOGGER.debug(f'   Message:  {message.content}')
+        LOGGER.debug(f'   Category: {message.channel.category}')
         LOGGER.debug(f'   Channel:  {message.channel.name}')
         LOGGER.debug(f'   Author:   {message.author.name}')
+        LOGGER.debug(f'   Message:  {message.content}')
         LOGGER.debug(f"   Response: {response if response else '<empty>'}")
 
 
