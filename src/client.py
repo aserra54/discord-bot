@@ -1,15 +1,18 @@
 import discord
 import rule
+from discord.ext import commands
 
 
-class RedmacBotClient(discord.Client):
+INTENTS = discord.Intents.default()
+INTENTS.message_content = True
+
+
+class RedmacBotClient(commands.Bot):
     '''The main client for running the bot. Reads the token and parses the rules, the latter of which is used to
     determine how to respond to users.'''
 
     def __init__(self, rules_path):
-        intents = discord.Intents.default()
-        intents.message_content = True
-        super().__init__(intents=intents)
+        super().__init__(intents=INTENTS, command_prefix='!')
         self._rules = rule.Rules(rules_path)
     
     async def on_ready(self):
