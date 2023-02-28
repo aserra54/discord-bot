@@ -1,5 +1,10 @@
 import bot
+import logging
 import os
+
+
+def setup_logging():
+    logging.basicSetup(logging.INFO)
 
 
 def read_token(token_path):

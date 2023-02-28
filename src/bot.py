@@ -1,14 +1,14 @@
-import discord
+import disnake
 import logging
 import os
 import rule
 import time
-from discord.ext import commands
+from disnake.ext import commands
 
 
-LOGGER = logging.getLogger('discord.redmac.bot')
+LOGGER = logging.getLogger('redmac.bot')
 LOGGER.setLevel(logging.DEBUG)
-INTENTS = discord.Intents.default()
+INTENTS = disnake.Intents.default()
 INTENTS.message_content = True
 
 

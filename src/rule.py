@@ -4,7 +4,7 @@ import os
 import random
 
 
-LOGGER = logging.getLogger('discord.redmac.rule')
+LOGGER = logging.getLogger('redmac.rule')
 LOGGER.setLevel(logging.DEBUG)
 
 
