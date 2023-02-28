@@ -1,5 +1,3 @@
-import app
-import disnake
 import logging
 import os
 import rule
