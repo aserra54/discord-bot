@@ -1,12 +1,24 @@
-import bot
-import logging
+import app
+import disnake
 import os
+from disnake.ext import commands
 
 
-def setup_logging():
-    log_level = logging.INFO
-    log_format = '%(asctime)s | %(levelname)-7s | [%(name)s] %(message)s'
-    logging.basicConfig(level=log_level, format=log_format)
+# setup the bot globally
+INTENTS = disnake.Intents.default()
+INTENTS.message_content = True
+bot = commands.Bot(intents=INTENTS, command_prefix='!')
+app = app.App()
+
+
+@bot.event
+async def on_ready():
+    app.initialize(bot, 'rules.json')
+
+
+@bot.event
+async def on_message(message):
+    await app.message_handler.handle(message)
 
 
 def read_token(token_path):
@@ -16,12 +28,5 @@ def read_token(token_path):
         return f.read()
 
 
-def main():
-    setup_logging()
-    token = read_token('.token')
-    redmac_bot = bot.RedmacBot('rules.json')
-    redmac_bot.run(token)
-
-
 if __name__ == '__main__':
-    main()
+    bot.run(read_token('.token'))

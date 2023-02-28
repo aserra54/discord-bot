@@ -1,4 +1,3 @@
-import disnake
 import logging
 import os
 import rule
@@ -6,28 +5,24 @@ import time
 from disnake.ext import commands
 
 
-LOGGER = logging.getLogger('redmac.bot')
-LOGGER.setLevel(logging.DEBUG)
-INTENTS = disnake.Intents.default()
-INTENTS.message_content = True
+LOGGER = logging.getLogger('redmac.msg')
 
 
-class RedmacBot(commands.Bot):
-    '''The bot itself. Parses the rules, the latter of which is used to determine how to respond to users. It will
-    automatically refresh the rules over time, as they become stale.'''
+class MessageHandler:
+    '''Handles messages sent on discord. Will match the message against any of the rules defined in a 'rules' JSON
+    file, and respond to the message accordingly. Automatically refreshes its rules every so often to prevent the need
+    for restarting the bot on rule changes.'''
 
-    def __init__(self, rules_path):
-        super().__init__(intents=INTENTS, command_prefix='!')
+    def __init__(self, bot: commands.Bot, rules_path: str):
+        self._bot = bot
         self._rules_path = rules_path
         self._rules = rule.Rules(rules_path)
         self._last_read_time = time.time()
     
-    async def on_ready(self):
-        LOGGER.info(f'{self.user} has connected to Discord!')
-
-    async def on_message(self, message):
+    async def handle(self, message):
+        '''Handles the message, responding to it if necessary.'''
         self._refresh_rules()
-        if message.author == self.user:
+        if message.author == self._bot.user:
             return
         await self._rules.handle(message)
 
