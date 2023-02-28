@@ -9,6 +9,9 @@ LOGGER = logging.getLogger('redmac.app')
 
 
 class App:
+    '''Container for all data structures that will be used by the bot. As the bot needs to be statically defined in
+    order to appropriately listen to messages, this class can be thought of as the main entry point for managing all
+    objects used by the bot.'''
 
     def __init__(self):
         self.bot: commands.Bot = None
