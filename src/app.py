@@ -1,7 +1,5 @@
 import logging
 import msg
-import os
-import rule
 from disnake.ext import commands
 
 

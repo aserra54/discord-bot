@@ -1,12 +1,7 @@
 import app
-import bot
 import disnake
-import logging
 import os
 from disnake.ext import commands
-
-
-LOGGER = logging.getLogger('redmac.bot')
 
 
 # setup the bot globally
