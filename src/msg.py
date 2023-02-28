@@ -9,6 +9,9 @@ LOGGER = logging.getLogger('redmac.msg')
 
 
 class MessageHandler:
+    '''Handles messages sent on discord. Will match the message against any of the rules defined in a 'rules' JSON
+    file, and respond to the message accordingly. Automatically refreshes its rules every so often to prevent the need
+    for restarting the bot on rule changes.'''
 
     def __init__(self, bot: commands.Bot, rules_path: str):
         self._bot = bot
@@ -17,6 +20,7 @@ class MessageHandler:
         self._last_read_time = time.time()
     
     async def handle(self, message):
+        '''Handles the message, responding to it if necessary.'''
         self._refresh_rules()
         if message.author == self._bot.user:
             return
