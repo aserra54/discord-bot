@@ -8,6 +8,7 @@ from disnake.ext import commands
 
 LOGGER = logging.getLogger('redmac.bot')
 
+
 # setup the bot globally
 INTENTS = disnake.Intents.default()
 INTENTS.message_content = True
@@ -25,14 +26,12 @@ async def on_message(message):
     await app.message_handler.handle(message)
 
 
-def main():
-    token_path = '.token'
+def read_token(token_path):
     if not os.path.isfile(token_path):
         raise ValueError(f'No such file: {token_path}')
     with open(token_path, 'r') as f:
-        token = f.read()
-    bot.run(token)
+        return f.read()
 
 
 if __name__ == '__main__':
-    main()
+    bot.run(read_token('.token'))

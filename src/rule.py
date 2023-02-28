@@ -5,7 +5,6 @@ import random
 
 
 LOGGER = logging.getLogger('redmac.rule')
-LOGGER.setLevel(logging.DEBUG)
 
 
 class Rules:

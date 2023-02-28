@@ -24,7 +24,7 @@ class App:
         LOGGER.info('Application successfully initialized')
 
     def _setup_logging(self):
-        log_level = logging.DEBUG
+        log_level = logging.INFO
         log_format = '%(asctime)s | %(levelname)-7s | [%(name)s] %(message)s'
         logging.basicConfig(level=log_level, format=log_format)
         LOGGER.debug('Logging successfully initialized')
