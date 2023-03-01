@@ -1,3 +1,4 @@
+import disnake
 import logging
 import os
 import rule
@@ -13,16 +14,15 @@ class MessageHandler:
     file, and respond to the message accordingly. Automatically refreshes its rules every so often to prevent the need
     for restarting the bot on rule changes.'''
 
-    def __init__(self, bot: commands.Bot, rules_path: str):
-        self._bot = bot
+    def __init__(self, rules_path: str):
         self._rules_path = rules_path
         self._rules = rule.Rules(rules_path)
         self._last_read_time = time.time()
     
-    async def handle(self, message):
+    async def handle(self, bot: commands.Bot, message: disnake.Message):
         '''Handles the message, responding to it if necessary.'''
         self._refresh_rules()
-        if message.author == self._bot.user:
+        if message.author == bot.user:
             return
         await self._rules.handle(message)
 
