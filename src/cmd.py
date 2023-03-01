@@ -6,8 +6,11 @@ LOGGER = logging.getLogger('redmac.cmd')
 
 
 class CommandHandler:
+    '''Central class for handling slash commands.'''
 
     async def handle_drg(self, interaction: disnake.ApplicationCommandInteraction, length: int, complexity: int, location: str, mission_type: str, anomaly: str, mutator1: str, mutator2: str):
+        '''Given the parameters of a mission in Deep Rock Galactic (DRG), returns the computed hazard bonuses for the
+        different difficult levels as well as suggested perks to use on those missions.'''
 
         base_bonus = 0
         base_bonus += (length - 1) * 10
