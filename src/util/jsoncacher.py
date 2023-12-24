@@ -1,4 +1,5 @@
 import json
+import os
 from datetime import datetime, timedelta
 from typing import NamedTuple
 
@@ -22,15 +23,19 @@ def get(path: str) -> dict:
     cached, then the cached data will be returned; otherwise, the file will be
     loaded from disk and cached.'''
 
-    file_info = _DATA.get(path, None)
+    path_key = os.path.abspath(path)
+    file_info = _DATA.get(path_key, None)
     if file_info is not None:
-        file_info.last_accessed = datetime.now()
-        return file_info.data
+        new_file_info = JsonFileInfo(data=file_info.data,
+                                     last_accessed=datetime.now())
+        _DATA[path_key] = new_file_info
+        return new_file_info.data
 
-    with open(path, mode='r', encoding='utf-8') as f:
+    with open(path_key, mode='r', encoding='utf-8') as f:
         raw_data = f.read()
     json_data = json.loads(raw_data)
     file_info = JsonFileInfo(data=json_data, last_accessed=datetime.now())
+    _DATA[path_key] = file_info
     return json_data
 
 
