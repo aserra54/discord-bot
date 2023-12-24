@@ -1,4 +1,4 @@
-import cmd
+import command
 import logging
 import msg
 from disnake.ext import commands
@@ -14,13 +14,13 @@ class App:
 
     def __init__(self):
         self.bot: commands.Bot = None
-        self.command_handler: cmd.CommandHandler = None
+        self.command_handler: command.CommandHandler = None
         self.message_handler: msg.MessageHandler = None
 
     def initialize(self, bot: commands.Bot, rules_path: str):
         self.bot = bot
         self._setup_logging()
-        self.command_handler = cmd.CommandHandler()
+        self.command_handler = command.CommandHandler()
         self.message_handler = msg.MessageHandler(rules_path)
         LOGGER.info('Application successfully initialized')
 
