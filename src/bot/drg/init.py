@@ -1,5 +1,5 @@
 from disnake import ApplicationCommandInteraction
-from disnake.exts.commands import Param
+from disnake.ext.commands import Param
 
 from ..init import app, bot
 
