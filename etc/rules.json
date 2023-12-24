@@ -1,22 +1,18 @@
 {
     "rules": [
         {
-            "channel": "phasmophobia",
-            "rate": 0.05,
-            "authors": ["DVR"],
-            "responses": [
-                "I see you waiting in the van, Daniel.",
-                "Go wait in the van, Daniel."
-            ]
-        },
-        {
             "channel": "deep-rock-galactic",
             "contains": ["rock", "stone"],
             "responses": [
-                "Rock and stone!",
                 "For rock and stone!",
                 "ROCK... AND... STONE!",
-                "Rock and stone forever!"
+                "Rock and roll and stone!",
+                "Rock and stone forever!",
+                "Rock and stone in the heart!",
+                "Rock and stone!",
+                "Rock and stone, yeeaaahhh!",
+                "Stone and rock! ...Oh, wait...",
+                "That's it lads! Rock and stone!"
             ]
         },
         {
@@ -27,15 +23,6 @@
         {
             "channel": "deep-rock-galactic",
             "rate": 0.05,
-            "authors": ["tattlebag"],
-            "responses": [
-                "Careful with the C4 there.",
-                "Did you drop your C4 again?"
-            ]
-        },
-        {
-            "channel": "deep-rock-galactic",
-            "rate": 0.10,
             "contains": ["karl"],
             "not_contains": ["karl.gg"],
             "responses": ["I miss Karl."]
