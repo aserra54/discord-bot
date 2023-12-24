@@ -1,4 +1,4 @@
-# TESTING
+# WORK IN PROGRESS
 
 1. Create a `.token` in the same folder as the bot, and set its contents to your Discord bot token (with no new line
    at the end of the file).
