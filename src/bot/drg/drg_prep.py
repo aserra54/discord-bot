@@ -1,14 +1,51 @@
-import disnake
 import logging
 
+from disnake import ApplicationCommandInteraction
+from disnake.ext.commands import Param
+from bot import bot
 
-LOGGER = logging.getLogger('redmac.cmd')
+
+LOGGER = logging.getLogger('redmac.bot.drg.drg_prep')
+
+locations = ['Azure Weald', 'Crystalline Caverns', 'Dense Biozone', 'Fungus Bogs', 'Glacial Strata', 'Hollow Bough',
+             'Magma Core', 'Radioactive Exclusion Zone', 'Salt Pits', 'Sandblasted Corridors']
+
+mission_types = ['Deep Dive', 'Egg Hunt', 'Elimination', 'Escort Duty', 'Industrial Sabotage', 'Mining Expedition',
+                 'On-site Refining', 'Point Extraction', 'Salvage Operation']
+
+side_missions = ['Alien Fossils', 'Apoca Blooms', 'Boolo Caps', 'Dystrum', 'Ebonuts', 'Fester Fleas', 'Gunk Seeds', 
+                 'Hollomite']
+
+anomalies = ['-', 'Critical Weakness', 'Double XP', 'Gold Rush', 'Golden Bugs', 'Low Gravity', 'Mineral Mania', 
+             'Rich Atmosphere', 'Volatile Guts']
+
+mutators = ['-', 'Cave Leech Cluster', 'Elite Threat', 'Exploder Infestation!', 'Haunted Cave', 'Lethal Enemies',
+            'Lithophage Outbreak', 'Low Oxygen', 'Mactera Plague', 'Parasites', 'Regenerative Bugs', 'Rival Presence',
+            'Shield Disruption', 'Swarmageddon']
 
 
-class CommandHandler:
-    '''Central class for handling slash commands.'''
+@bot.slash_command(name='drg-prep')
+async def drg_prep(
+    self,
+    interaction: ApplicationCommandInteraction, 
+    length: int = Param(choices=[1, 2, 3]),
+    complexity: int = Param(choices=[1, 2, 3]),
+    location: str = Param(choices=locations),
+    mission_type: str = Param(choices=mission_types),
+    side_mission: str = Param(choices=side_missions),
+    anomaly: str = Param(choices=anomalies),
+    mutator1: str = Param(choices=mutators),
+    mutator2: str = Param(choices=mutators),
+    game_type: str = Param(choices=['Solo', 'Multiplayer']),
+):
+    await DrgPrepCommand().handle(interaction, length, complexity, location, mission_type, side_mission, anomaly,
+                                  mutator1, mutator2, game_type)
 
-    async def handle_drg(self, interaction: disnake.ApplicationCommandInteraction, length: int, complexity: int, location: str, mission_type: str, side_mission: str, anomaly: str, mutator1: str, mutator2: str, game_type: str):
+
+class DrgPrepCommand:
+    '''Handles the 'drg-prep' slash command.'''
+
+    async def handle(self, interaction: ApplicationCommandInteraction, length: int, complexity: int, location: str, mission_type: str, side_mission: str, anomaly: str, mutator1: str, mutator2: str, game_type: str):
         '''Given the parameters of a mission in Deep Rock Galactic (DRG), returns the computed hazard bonuses for the
         different difficult levels as well as suggested perks to use on those missions.'''
 
