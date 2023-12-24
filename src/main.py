@@ -38,11 +38,6 @@ async def drg(
     await app.command_handler.handle_drg(interaction, length, complexity, location, mission_type, side_mission, anomaly, mutator1, mutator2, game_type)
 
 
-@bot.slash_command()
-async def elys_add(self, interaction: disnake.ApplicationCommandInteraction, user: disnake.User, url: str, status: str = commands.Param(choices=['Main', 'Alt'])):
-    await interaction.response.send_message(f'Added {status} character for {user.name}: {url}')
-
-
 def read_token(token_path):
     if not os.path.isfile(token_path):
         raise ValueError(f'No such file: {token_path}')
