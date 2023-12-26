@@ -1,5 +1,5 @@
-import json
 import random
+import util.jsoncacher as jsoncacher
 from disnake import ApplicationCommandInteraction
 from bot import bot
 
@@ -7,8 +7,11 @@ from bot import bot
 DATA_JSON = 'data/drg-quotes.json'
 
 
-@bot.slash_command(name='drg-quote', description='Returns a random quote from Deep Rock Galactic.')
-async def drg_quote(self, interaction: ApplicationCommandInteraction):
+@bot.slash_command(
+    name='drg-quote',
+    description='Returns a random quote from Deep Rock Galactic.'
+)
+async def drg_quote(interaction: ApplicationCommandInteraction):
     await DrgQuoteCommand().handle(interaction)
 
 
@@ -16,8 +19,7 @@ class DrgQuoteCommand:
     '''Command for returning a random quote from Deep Rock Galactic.'''
 
     async def handle(self, interaction):
-        with open(DATA_JSON, mode='r', encoding='utf-8') as f:
-            data = json.loads(f.read())
+        data = jsoncacher.get(DATA_JSON)
         quotes = data['quotes']
 
         selected = random.choice(quotes)
