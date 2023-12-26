@@ -1,0 +1,59 @@
+{
+    "quotes": [
+        {
+            "quote": "Where is that damn tin can?!",
+            "source": "Dwarf",
+            "scenario": "when calling for the MULE"
+        },
+        {
+            "quote": "I need the damn minecart on legs! Where is it?!",
+            "source": "Dwarf",
+            "scenario": "when calling for the MULE"
+        },
+        {
+            "quote": "Help! I'm stuck in the ceiling!",
+            "source": "Dwarf",
+            "scenario": "when grabbed by a cave leech"
+        },
+        {
+            "quote": "From A to D, skipping B and C!",
+            "source": "Scout",
+            "scenario": "when using the grappling hook"
+        },
+        {
+            "quote": "Ready to blow!",
+            "source": "Driller",
+            "scenario": "when placing a satchel charge"
+        },
+        {
+            "quote": "I call it my \"grenade-grenade\"!",
+            "source": "Gunner",
+            "scenario": "when throwing a cluster grenade"
+        },
+        {
+            "quote": "Multi-boom!",
+            "source": "Gunner",
+            "scenario": "when throwing a cluster grenade"
+        },
+        {
+            "quote": "Turrets and explosions! You've come to the right place, mate.",
+            "source": "Engineer",
+            "scenario": "when selected"
+        },
+        {
+            "quote": "Two-thousand rounds of depleted uranium, aw yeah!",
+            "source": "Gunner",
+            "scenario": "when selected"
+        },
+        {
+            "quote": "Allow me to \"illuminate\" the situation! Hahahaha!",
+            "source": "Scout",
+            "scenario": "when selected"
+        },
+        {
+            "quote": "If it ain't drillable, it's probably flammable.",
+            "source": "Driller",
+            "scenario": "when selected"
+        }
+    ]
+}

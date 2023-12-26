@@ -1,30 +1,31 @@
 import random
+import util.jsoncacher as jsoncacher
 from disnake import ApplicationCommandInteraction
 from bot import bot
 
 
-quotes = [
-    ('Where is that damn tin can?!', 'Dwarf', 'when calling for the MULE'),
-    ('I need the damn minecart on legs! Where is it?!', 'Dwarf', 'when calling for the MULE'),
-    ("Help! I'm stuck in the ceiling!", 'Dwarf', 'when grabbed by a cave leech'),
-    ('From A to D, skipping B and C!', 'Scout', 'when using the grappling hook'),
-    ('Ready to blow!', 'Driller', 'when placing a satchel charge'),
-    ('I call it my "grenade-grenade"!', 'Gunner', 'when throwing a cluster grenade'),
-    ('Multi-boom!', 'Gunner', 'when throwing a cluster grenade'),
-    ("Turrets and explosions! You've come to the right place, mate.", 'Engineer', 'when selected'),
-    ('Two-thousand rounds of depleted uranium, aw yeah!', 'Gunner', 'when selected'),
-    ('Allow me to "illuminate" the situation! Hahahaha!', 'Scout', 'when selected'),
-    ("If it ain't drillable, it's probably flammable.", 'Driller', 'when selected'),
-]
+DATA_JSON = 'data/drg-quotes.json'
 
 
-@bot.slash_command(name='drg-quote', description='Returns a random quote from Deep Rock Galactic.')
-async def drg_quote(self, interaction: ApplicationCommandInteraction):
+@bot.slash_command(
+    name='drg-quote',
+    description='Returns a random quote from Deep Rock Galactic.'
+)
+async def drg_quote(interaction: ApplicationCommandInteraction):
     await DrgQuoteCommand().handle(interaction)
 
 
 class DrgQuoteCommand:
+    '''Command for returning a random quote from Deep Rock Galactic.'''
+
     async def handle(self, interaction):
-        quote, speaker, situation = random.choice(quotes)
-        message = f'"{quote}" - {speaker}, {situation}'
+        data = jsoncacher.get(DATA_JSON)
+        quotes = data['quotes']
+
+        selected = random.choice(quotes)
+        quote = selected['quote']
+        source = selected['source']
+        scenario = selected['scenario']
+
+        message = f'"{quote}" - {source}, {scenario}'
         await interaction.response.send_message(message)
