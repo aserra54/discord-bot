@@ -12,7 +12,7 @@ app = app.App()
 
 @bot.event
 async def on_ready():
-    app.initialize(bot, 'rules.json')
+    app.initialize(bot, 'data/msg-rules.json')
 
 
 @bot.event
