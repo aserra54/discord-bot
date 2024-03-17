@@ -1,6 +1,7 @@
 import logging
 import msg
 from disnake.ext import commands
+from util.activity_task import DrgActivityTask
 
 
 LOGGER = logging.getLogger('redmac.app')
@@ -19,6 +20,7 @@ class App:
         self.bot = bot
         self._setup_logging()
         self.message_handler = msg.MessageHandler(rules_path)
+        DrgActivityTask(bot).start()
         LOGGER.info('Application successfully initialized')
 
     def _setup_logging(self):

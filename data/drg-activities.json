@@ -1,0 +1,65 @@
+{
+    "activities": [
+        {
+            "type": "playing",
+            "name": "Deep Rock Galactic"
+        },
+        {
+            "type": "playing",
+            "name": "Deep Rock Galactic: Survivor"
+        },
+        {
+            "type": "playing",
+            "name": "Flappy Boot"
+        },
+        {
+            "type": "playing",
+            "name": "Barrel Kicking"
+        },
+        {
+            "type": "custom",
+            "name": "Mining for Morkite",
+            "status": "dnd"
+        },
+        {
+            "type": "custom",
+            "name": "Hunting dreadnaughts",
+            "status": "dnd"
+        },
+        {
+            "type": "custom",
+            "name": "Looking for Aquarqs",
+            "status": "dnd"
+        },
+        {
+            "type": "custom",
+            "name": "Running a Deep Dive",
+            "status": "dnd"
+        },
+        {
+            "type": "custom",
+            "name": "Building pipelines",
+            "status": "dnd"
+        },
+        {
+            "type": "custom",
+            "name": "Escorting Doretta",
+            "status": "dnd"
+        },
+        {
+            "type": "custom",
+            "name": "Having a beer",
+            "status": "online"
+        },
+        {
+            "type": "custom",
+            "name": "Collecting alien eggs",
+            "status": "dnd"
+        },
+        {
+            "type": "custom",
+            "name": "Eliminating the Caretaker",
+            "status": "dnd"
+        }
+    ]
+}
